@@ -1,4 +1,4 @@
-package classes;
+package Wizard;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,15 +8,16 @@ public class Wizard {
     private String animal;
     private String house;
     private Map<String, Integer> stats;
-    private String[] spells;
+    // Uncomment when adding combat into the game
+    // private String[] spells;
 
 
     public Wizard(String name, String animal, String house, HashMap<String, Integer> stats, String[] spells) {
         this.name = name;
         this.animal = animal;
         this.house = house;
-        this.spells = spells;
         this.stats = stats != null ? stats : new HashMap<>();
+        // this.spells = spells;
 
         setBaseStats();
         setHouse(this.house);
@@ -43,19 +44,19 @@ public class Wizard {
         switch (house) {
             case "Gryffindor" -> {
                 stats.put("bravery", stats.get("bravery") + 2); 
-                System.out.println("Ah, so you are a brave Gryffindor! Many bold and adventuring wizards have come from that house. Just make sure not to stray too far from the path of righteousness.");
+                // System.out.println("\nAh, so you are a brave Gryffindor! Many bold and adventuring wizards have come from that house. Just make sure not to stray too far from the path of righteousness.");
             }
             case "Slytherin" -> {
                 stats.put("cunning", stats.get("cunning") + 2);
-                System.out.println("Ah, so you are a cunning Slytherin! Many powerful wizards have come from that house. Also many dark wizards have come from that house. Make sure to walk a straight path and use your cunning for good... that is if you so choose.");
+                // System.out.println("\nAh, so you are a cunning Slytherin! Many powerful wizards have come from that house. Also many dark wizards have come from that house. Make sure to walk a straight path and use your cunning for good... that is if you so choose.");
             }
             case "Ravenclaw" -> {
                 stats.put("intelligence", stats.get("intelligence") + 2);
-                System.out.println("Ah, so you are an intelligent Ravenclaw! Many wise wizards have come from that house.");
+                // System.out.println("\nAh, so you are an intelligent Ravenclaw! Many wise wizards have come from that house.");
             }
             case "Hufflepuff" -> { 
                 stats.put("strength", stats.get("strength") + 2);
-                System.out.println("Ah, so you are a strong Hufflepuff! Many loyal wizards have come from that house.");
+                // System.out.println("\nAh, so you are a strong Hufflepuff! Many loyal wizards have come from that house.");
             }
             default -> { 
             }
@@ -82,6 +83,11 @@ public class Wizard {
 
     public String getAnimal() {
         return this.animal;
+    }
+
+    public int setStat(String stat, int amount) {
+        this.stats.put(stat, this.stats.get(stat) + amount);
+        return this.stats.get(stat);
     }
 
     public HashMap<String, Integer> getStats() {
