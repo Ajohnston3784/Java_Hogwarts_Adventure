@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Divination_Class.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-hogwarts-adventure</a> &gt; <a href="index.source.html" class="el_package">classes</a> &gt; <span class="el_source">Divination_Class.java</span></div><h1>Divination_Class.java</h1><pre class="source lang-java linenums">package classes;
+
+import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+public class Divination_Class extends Hogwarts_Class {
+<span class="fc" id="L10">    String name = &quot;Divination&quot;;</span>
+<span class="fc" id="L11">    String teacher = &quot;Professor Trelawney&quot;;</span>
+<span class="fc" id="L12">    String statUsed = &quot;Cunning&quot;;</span>
+<span class="fc" id="L13">    boolean timeUp = false;</span>
+<span class="fc" id="L14">    int correctAnswers = 0;</span>
+
+<span class="fc" id="L16">    public Divination_Class() {</span>
+<span class="fc" id="L17">        System.out.println(&quot;\n\nYou have chosen to attend Diviniation class. Your teacher is Professor Trelawney. This class will use your cunning stat.\n&quot;);</span>
+<span class="fc" id="L18">        brewPotion();</span>
+<span class="fc" id="L19">    }</span>
+
+    private void brewPotion() {
+<span class="fc" id="L22">        System.out.println(&quot;\nToday you are given a written exam to complete. You must answer the questions correctly to pass.\n&quot;);</span>
+<span class="fc" id="L23">        Scanner divinationPrompt = new Scanner(System.in);</span>
+
+<span class="fc" id="L25">        System.out.println(&quot;Are you ready to begin (yes/no) \n\n&quot;);</span>
+<span class="fc" id="L26">        String ready = divinationPrompt.nextLine();</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (!ready.toLowerCase().equals(&quot;yes&quot;)) {</span>
+<span class="fc" id="L28">            System.out.println(&quot;You have chosen to skip class for today, which would result in no stat bonus. If you'd rather continue type yes \n\n&quot;);</span>
+<span class="fc" id="L29">            ready = divinationPrompt.nextLine();</span>
+        }
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (ready.toLowerCase().equals(&quot;yes&quot;)) {</span>
+<span class="fc" id="L33">            System.out.println(&quot;Great let's get started! \n\n&quot;);</span>
+<span class="fc" id="L34">            String[] examQuestions = {&quot;What kind of animal brought Harry his first letter from Hogwarts?&quot;,</span>
+<span class="fc" id="L35">                                        &quot;What is the ability to talk to snakes called?&quot;,</span>
+<span class="fc" id="L36">                                        &quot;What broke Ron's car after he flew it to Hogwarts?&quot;,</span>
+<span class="fc" id="L37">                                        &quot;Which Tri-wizard tournament contestant died?&quot;,</span>
+<span class="fc" id="L38">                                        &quot;Who died at the Ministry of Magic offices?&quot;,</span>
+<span class="fc" id="L39">                                        &quot;Who killed Dumbledore?&quot;,</span>
+<span class="fc" id="L40">                                        &quot;Which deathly hollows is represented by a stick figure?&quot;};</span>
+<span class="fc" id="L41">            String[] examAnswers ={&quot;owl&quot;, &quot;parseltongue&quot;, &quot;the whomping willow&quot;, &quot;cedric diggory&quot;, &quot;sirius black&quot;, &quot;snape&quot;, &quot;the elder wand&quot;};</span>
+
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            for (int i = 0; i &lt; examQuestions.length; i++) {</span>
+
+<span class="fc" id="L45">                System.out.printf(&quot;Question number %s: %s &quot;, i + 1, examQuestions[i]);</span>
+
+<span class="fc" id="L47">                ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();</span>
+<span class="fc" id="L48">                ScheduledFuture&lt;?&gt; future = executor.schedule(() -&gt; {</span>
+<span class="nc" id="L49">                    this.timeUp = true;</span>
+<span class="pc" id="L50">                }, 10, TimeUnit.SECONDS);</span>
+
+<span class="fc" id="L52">                String userWord = divinationPrompt.nextLine();</span>
+
+<span class="fc" id="L54">                future.cancel(true);</span>
+<span class="fc" id="L55">                executor.shutdown();</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">                if (this.timeUp) {</span>
+<span class="nc" id="L57">                    System.out.println(&quot;\nYou have failed to answer the question in the allotted time. Be better prepared for the next one.\n&quot;);</span>
+<span class="pc bfc" id="L58" title="All 2 branches covered.">                } else if (!userWord.toLowerCase().equals(examAnswers[i].toLowerCase())) {</span>
+<span class="fc" id="L59">                    System.out.println(&quot;\nWrong answer. Better luck with the next question!\n&quot;);</span>
+<span class="fc" id="L60">                } else {</span>
+<span class="fc" id="L61">                    System.out.println(&quot;\nThat is correct! Get ready for the next question.\n&quot;);</span>
+<span class="fc" id="L62">                    this.timeUp = false;</span>
+<span class="fc" id="L63">                    correctAnswers++;</span>
+                }
+
+<span class="fc bfc" id="L66" title="All 4 branches covered.">                if (i == examQuestions.length - 1 &amp;&amp; correctAnswers &gt;= examQuestions.length - 3) {</span>
+<span class="fc" id="L67">                    System.out.println(&quot;Congratulations! You have passed your written exam! You will gain a bonus of +1 to your cunning stat for the day.\n\n&quot;);</span>
+<span class="pc bpc" id="L68" title="1 of 4 branches missed.">                } else if (i == examQuestions.length - 1 &amp;&amp; correctAnswers &lt; examQuestions.length - 3) {</span>
+<span class="fc" id="L69">                    System.out.println(&quot;You have failed the written exam. You will not gain any benefits for the day.\n\n&quot;);</span>
+                }
+            }
+<span class="fc" id="L72">        } else {</span>
+<span class="fc" id="L73">            System.out.println(&quot;You have chosen to skip class for today, which resulted in no stat bonus. Goodbye!&quot;);</span>
+        }
+<span class="fc" id="L75">    }</span>
+
+    public String getTeacher() {
+<span class="fc" id="L78">        return this.teacher;</span>
+    }
+
+    public String getStatUsed() {
+<span class="fc" id="L82">        return this.statUsed;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

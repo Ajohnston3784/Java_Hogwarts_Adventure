@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-hogwarts-adventure</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">import java.util.Map;
+import java.util.Scanner;
+
+import Wizard.Wizard;
+import classes.Divination_Class;
+import classes.Potions_Class;
+import factories.WizardFactory;
+
+<span class="nc" id="L9">public class Main {</span>
+    public static void main(String[] args) {
+        // Set exit to false to start the character creation loop
+<span class="nc" id="L12">        Boolean exit = false;</span>
+<span class="nc bnc" id="L13" title="All 2 branches missed.">            while (!exit) {</span>
+<span class="nc" id="L14">                System.out.println(&quot;Welcome to the Wizarding World of Harry Potter! You are starting your 4th year of school at Hogwarts the magical school of witches and wizards. Before we get started please tell me a little bit about yourself \n\n&quot;);</span>
+<span class="nc" id="L15">                Wizard player = WizardFactory.createPlayer();</span>
+                
+<span class="nc" id="L17">                System.out.println(&quot;\n\nHello &quot; + player.getName() + &quot;!&quot;);</span>
+<span class="nc" id="L18">                System.out.println(&quot;\nYou are a &quot; + player.getHouse() + &quot; wizard with a &quot; + player.getAnimal() + &quot; as your animal companion.&quot;);</span>
+<span class="nc" id="L19">                Map&lt;String, Integer&gt; stats = player.getStats();</span>
+<span class="nc" id="L20">                System.out.printf(&quot;Your current stats are: \n strength: %d \n intellect: %d \n cunning: %d \n bravery %d&quot;, stats.get(&quot;strength&quot;), stats.get(&quot;intelligence&quot;), stats.get(&quot;cunning&quot;), stats.get(&quot;bravery&quot;));</span>
+                
+<span class="nc" id="L22">                Scanner characterCreationPrompt = new Scanner(System.in);</span>
+<span class="nc" id="L23">                System.out.println(&quot;\n\nIs this correct? (yes/no)\n&quot;);</span>
+<span class="nc" id="L24">                String acceptPlayer = characterCreationPrompt.nextLine();</span>
+
+<span class="nc bnc" id="L26" title="All 2 branches missed.">                if (acceptPlayer.equals(&quot;yes&quot;)) {</span>
+<span class="nc" id="L27">                    System.out.println(&quot;\n\nGreat! Let's get started on your adventure!&quot;);</span>
+<span class="nc" id="L28">                    String hogwarts = </span>
+<span class="nc" id="L29">&quot; _    _   ____    _____ __          __       _____  _______  _____             _____ __      __ ______  _   _  _______  _    _  _____   ______ \n&quot; +</span>
+&quot;| |  | | / __ \\  / ____|\\ \\        / //\\    |  __ \\|__   __|/ ____|     /\\    |  __ \\\\ \\    / /|  ____|| \\ | ||__   __|| |  | ||  __ \\ |  ____|\n&quot; +
+&quot;| |__| || |  | || |  __  \\ \\  /\\  / //  \\   | |__) |  | |  | (___      /  \\   | |  | |\\ \\  / / | |__   |  \\| |   | |   | |  | || |__) || |__   \n&quot; +
+&quot;|  __  || |  | || | |_ |  \\ \\/  \\/ // /\\ \\  |  _  /   | |   \\___ \\    / /\\ \\  | |  | | \\ \\/ /  |  __|  | . ` |   | |   | |  | ||  _  / |  __|  \n&quot; +
+&quot;| |  | || |__| || |__| |   \\  /\\  // ____ \\ | | \\ \\   | |   ____) |  / ____ \\ | |__| |  \\  /   | |____ | |\\  |   | |   | |__| || | \\ \\ | |____ \n&quot; +
+&quot;|_|  |_| \\____/  \\_____|    \\/  \\//_/    \\_\\|_|  \\_\\  |_|  |_____/  /_/    \\_\\|_____/    \\/    |______||_| \\_|   |_|    \\____/ |_|  \\_\\|______\n&quot;;
+<span class="nc" id="L35">                    System.out.println(hogwarts);</span>
+
+<span class="nc" id="L37">                    exit = true;</span>
+<span class="nc" id="L38">                } else {</span>
+<span class="nc" id="L39">                    System.out.println(&quot;Okay. Please rebuild your character.&quot;);</span>
+                }
+            }
+            // reset exit to false to start the game loop
+<span class="nc" id="L43">            exit = false;</span>
+<span class="nc" id="L44">            Scanner gamePlayScanner = new Scanner(System.in);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            while (!exit) {</span>
+<span class="nc" id="L46">                System.out.println(&quot;Today is your first day of classes here at Hogwarts. Which class would you like to attend first, Divination or Potions?&quot;);</span>
+<span class="nc" id="L47">                String classSelection = gamePlayScanner.nextLine();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                if (classSelection.equals(&quot;Divination&quot;)) {</span>
+<span class="nc" id="L49">                    Divination_Class divinationClass = new Divination_Class();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                } else if (classSelection.equals(&quot;Potions&quot;)) {</span>
+<span class="nc" id="L51">                    Potions_Class potionsClass = new Potions_Class();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                } else if (classSelection.toLowerCase().equals(&quot;exit&quot;)) {</span>
+<span class="nc" id="L53">                    exit = true;</span>
+                }
+            }
+<span class="nc" id="L56">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

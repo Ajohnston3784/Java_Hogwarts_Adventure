@@ -2,6 +2,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import Wizard.Wizard;
+import classes.Divination_Class;
 import classes.Potions_Class;
 import factories.WizardFactory;
 
@@ -40,9 +41,17 @@ public class Main {
             }
             // reset exit to false to start the game loop
             exit = false;
+            Scanner gamePlayScanner = new Scanner(System.in);
             while (!exit) {
-                System.out.println("Today is your first day of classes here at Hogwarts. The first class you have to attend is potions class with Professor Snape. Let's get started!");
-                Potions_Class potionsClass = new Potions_Class();
+                System.out.println("Today is your first day of classes here at Hogwarts. Which class would you like to attend first, Divination or Potions?");
+                String classSelection = gamePlayScanner.nextLine();
+                if (classSelection.equals("Divination")) {
+                    Divination_Class divinationClass = new Divination_Class();
+                } else if (classSelection.equals("Potions")) {
+                    Potions_Class potionsClass = new Potions_Class();
+                } else if (classSelection.toLowerCase().equals("exit")) {
+                    exit = true;
+                }
             }
         }
 }

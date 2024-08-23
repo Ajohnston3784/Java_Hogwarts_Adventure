@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Potions_Class.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-hogwarts-adventure</a> &gt; <a href="index.source.html" class="el_package">classes</a> &gt; <span class="el_source">Potions_Class.java</span></div><h1>Potions_Class.java</h1><pre class="source lang-java linenums">package classes;
+
+import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+public class Potions_Class extends Hogwarts_Class {
+<span class="fc" id="L10">    String name = &quot;Potions&quot;;</span>
+<span class="fc" id="L11">    String teacher = &quot;Professor Snape&quot;;</span>
+<span class="fc" id="L12">    String statUsed = &quot;intelligence&quot;;</span>
+<span class="fc" id="L13">    boolean timeUp = false;</span>
+<span class="fc" id="L14">    int timeLimit = 0;</span>
+
+<span class="fc" id="L16">    public Potions_Class() {</span>
+<span class="fc" id="L17">        System.out.println(&quot;\n\nYou have chosen to attend Potions class. Your teacher is Professor Snape. This class will use your intelligence stat.\n&quot;);</span>
+<span class="fc" id="L18">        brewPotion();</span>
+<span class="fc" id="L19">    }</span>
+
+    private void brewPotion() {
+<span class="fc" id="L22">        System.out.println(&quot;\nYou have been given a potion to brew. You must follow the instructions carefully to brew the potion correctly.\n&quot;);</span>
+<span class="fc" id="L23">        System.out.println(&quot;\nIn order to brew the potions correctly you must correctly type the following words within the allotted time frame. If you do not type the words correctly within the time frame you will fail the potion and not gain any benefits for the day.\n\n&quot;);</span>
+<span class="fc" id="L24">        Scanner potionPrompt = new Scanner(System.in);</span>
+
+<span class="fc" id="L26">        System.out.println(&quot;Are you ready to begin (yes/no) \n\n&quot;);</span>
+<span class="fc" id="L27">        String ready = potionPrompt.nextLine();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!ready.toLowerCase().equals(&quot;yes&quot;)) {</span>
+<span class="fc" id="L29">            System.out.println(&quot;You have chosen to skip class for today, which would result in no stat bonus. If you'd rather continue type yes \n\n&quot;);</span>
+<span class="fc" id="L30">            ready = potionPrompt.nextLine();</span>
+        }
+
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (ready.toLowerCase().equals(&quot;yes&quot;)) {</span>
+<span class="fc" id="L34">            System.out.println(&quot;Great let's get started! \n\n&quot;);</span>
+<span class="fc" id="L35">            String[] potionWords = {&quot;wingardium&quot;, &quot;leviosa&quot;, &quot;alohomora&quot;, &quot;expelliarmus&quot;, &quot;lumos&quot;, &quot;nox&quot;, &quot;accio&quot;, &quot;expecto&quot;, &quot;patronum&quot;, &quot;stupefy&quot;};</span>
+        
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            for (String word : potionWords) {</span>
+
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                if (word.length() &lt; 5) {</span>
+<span class="fc" id="L41">                    this.timeLimit = 3;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">                } else if (word.length() &lt; 8) {</span>
+<span class="fc" id="L43">                    this.timeLimit = 5;</span>
+<span class="fc" id="L44">                } else {</span>
+<span class="fc" id="L45">                    this.timeLimit = 7;</span>
+                }
+
+<span class="fc" id="L48">                System.out.println(word);</span>
+
+<span class="fc" id="L50">                ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();</span>
+<span class="fc" id="L51">                ScheduledFuture&lt;?&gt; future = executor.schedule(() -&gt; {</span>
+<span class="nc" id="L52">                    this.timeUp = true;</span>
+<span class="nc" id="L53">                    System.out.println(this.timeLimit);</span>
+<span class="pc" id="L54">                }, this.timeLimit, TimeUnit.SECONDS);</span>
+
+<span class="fc" id="L56">                String userWord = potionPrompt.nextLine();</span>
+
+<span class="fc" id="L58">                future.cancel(true);</span>
+<span class="fc" id="L59">                executor.shutdown();</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                if (this.timeUp) {</span>
+<span class="nc" id="L61">                    System.out.println(&quot;\nYou have failed to type the word in the allotted time. You will not gain any benefits for the day.\n&quot;);</span>
+<span class="nc" id="L62">                    break;</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                } else if (!userWord.equals(word)) {</span>
+<span class="fc" id="L64">                    System.out.println(&quot;\nYou have failed the potion. You will not gain any benefits for the day.\n&quot;);</span>
+<span class="fc" id="L65">                    break;</span>
+                } else {
+<span class="fc" id="L67">                    System.out.println(&quot;\nCorrect! You have successfully typed the ingredient\n&quot;);</span>
+<span class="fc" id="L68">                    this.timeUp = false;</span>
+                }
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">                if (word.equals(potionWords[potionWords.length - 1])) {</span>
+<span class="fc" id="L72">                    System.out.println(&quot;Congratulations! You have successfully brewed the potion. You will gain a bonus of +1 to your intelligence stat for the day.\n\n&quot;);</span>
+                    // System.out.printf(&quot;Your intelligence is now %s&quot;, Wizard.Wizard.setStat(&quot;intelligence&quot;, 1));
+
+                }
+            }
+<span class="fc" id="L77">        } else {</span>
+<span class="fc" id="L78">            System.out.println(&quot;You have chosen to skip class for today, which resulted in no stat bonus. Goodbye!&quot;);</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    public String getTeacher() {
+<span class="fc" id="L83">        return this.teacher;</span>
+    }
+
+    public String getStatUsed() {
+<span class="fc" id="L87">        return this.statUsed;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

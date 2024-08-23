@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WizardFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-hogwarts-adventure</a> &gt; <a href="index.source.html" class="el_package">factories</a> &gt; <span class="el_source">WizardFactory.java</span></div><h1>WizardFactory.java</h1><pre class="source lang-java linenums">package factories;
+import java.util.Scanner;
+
+import Wizard.Wizard;
+
+<span class="nc" id="L6">public class WizardFactory{</span>
+    public static Wizard createPlayer() {
+<span class="fc" id="L8">        Scanner gamePrompt = new Scanner(System.in);</span>
+<span class="fc" id="L9">        System.out.println(&quot;What is your name?&quot;);</span>
+<span class="fc" id="L10">        String name = gamePrompt.nextLine();</span>
+<span class="fc" id="L11">        System.out.println(&quot;\nHello &quot; + name + &quot;! What is your house? (Gryffindor, Slytherin, Ravenclaw, Hufflepuff)&quot;);</span>
+<span class="fc" id="L12">        String house = gamePrompt.nextLine();</span>
+<span class="fc" id="L13">        System.out.println(&quot;\nAs you well know, every wizard needs an animal companion. What is your animal companion? (Owl, Cat, Toad, Rat)&quot;);</span>
+<span class="fc" id="L14">        String animal = gamePrompt.nextLine();</span>
+
+<span class="fc" id="L16">        return new Wizard(name, animal, house, null, null);</span>
+    } 
+}
+
+
+// _    _   ____    _____ __          __       _____  _______  _____             _____ __      __ ______  _   _  _______  _    _  _____   ______ 
+// | |  | | / __ \  / ____|\ \        / //\    |  __ \|__   __|/ ____|     /\    |  __ \\ \    / /|  ____|| \ | ||__   __|| |  | ||  __ \ |  ____|
+// | |__| || |  | || |  __  \ \  /\  / //  \   | |__) |  | |  | (___      /  \   | |  | |\ \  / / | |__   |  \| |   | |   | |  | || |__) || |__   
+// |  __  || |  | || | |_ |  \ \/  \/ // /\ \  |  _  /   | |   \___ \    / /\ \  | |  | | \ \/ /  |  __|  | . ` |   | |   | |  | ||  _  / |  __|  
+// | |  | || |__| || |__| |   \  /\  // ____ \ | | \ \   | |   ____) |  / ____ \ | |__| |  \  /   | |____ | |\  |   | |   | |__| || | \ \ | |____ 
+// |_|  |_| \____/  \_____|    \/  \//_/    \_\|_|  \_\  |_|  |_____/  /_/    \_\|_____/    \/    |______||_| \_|   |_|    \____/ |_|  \_\|______
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
